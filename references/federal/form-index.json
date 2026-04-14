@@ -1,0 +1,312 @@
+{
+  "forms": {
+    "1040": {
+      "name": "U.S. Individual Income Tax Return",
+      "required": true,
+      "instructions_file": "references/federal/1040.md",
+      "instructions_cached": true,
+      "depends_on": ["schedule-1", "schedule-2", "schedule-3"],
+      "triggers": {}
+    },
+    "schedule-1": {
+      "name": "Additional Income and Adjustments to Income",
+      "required": false,
+      "instructions_file": "references/federal/1040-schedule-1.md",
+      "instructions_cached": false,
+      "depends_on": ["schedule-c", "schedule-e"],
+      "triggers": {
+        "has_self_employment_income": true,
+        "has_1099_nec": true,
+        "has_unemployment": true,
+        "has_traditional_ira_contribution": true,
+        "has_student_loan_interest": true,
+        "has_hsa": true,
+        "has_rental_income": true
+      },
+      "trigger_logic": "any"
+    },
+    "schedule-2": {
+      "name": "Additional Taxes",
+      "required": false,
+      "instructions_file": "references/federal/1040-schedule-2.md",
+      "instructions_cached": false,
+      "depends_on": ["schedule-se"],
+      "triggers": {
+        "has_self_employment_income": true
+      },
+      "trigger_logic": "any"
+    },
+    "schedule-3": {
+      "name": "Additional Credits and Payments",
+      "required": false,
+      "instructions_file": "references/federal/1040-schedule-3.md",
+      "instructions_cached": false,
+      "depends_on": ["8863"],
+      "triggers": {
+        "has_education_expenses": true,
+        "has_estimated_payments": true
+      },
+      "trigger_logic": "any"
+    },
+    "schedule-a": {
+      "name": "Itemized Deductions",
+      "required": false,
+      "instructions_file": "references/federal/1040-schedule-a.md",
+      "instructions_cached": true,
+      "depends_on": [],
+      "triggers": {
+        "itemize_deductions": true
+      },
+      "trigger_logic": "all"
+    },
+    "schedule-b": {
+      "name": "Interest and Ordinary Dividends",
+      "required": false,
+      "instructions_file": "references/federal/1040-schedule-b.md",
+      "instructions_cached": true,
+      "depends_on": [],
+      "triggers": {
+        "interest_over_1500": true
+      },
+      "trigger_logic": "any",
+      "notes": "Also required if dividends over $1,500 or certain foreign account conditions"
+    },
+    "schedule-c": {
+      "name": "Profit or Loss from Business (Sole Proprietorship)",
+      "required": false,
+      "instructions_file": "references/federal/1040-schedule-c.md",
+      "instructions_cached": true,
+      "depends_on": [],
+      "triggers": {
+        "has_self_employment_income": true,
+        "has_1099_nec": true
+      },
+      "trigger_logic": "any"
+    },
+    "schedule-d": {
+      "name": "Capital Gains and Losses",
+      "required": false,
+      "instructions_file": "references/federal/1040-schedule-d.md",
+      "instructions_cached": true,
+      "depends_on": ["8949"],
+      "triggers": {
+        "has_capital_gains": true
+      },
+      "trigger_logic": "all"
+    },
+    "schedule-e": {
+      "name": "Supplemental Income and Loss (Rental, Royalty, Partnership, S Corp)",
+      "required": false,
+      "instructions_file": "references/federal/1040-schedule-e.md",
+      "instructions_cached": false,
+      "depends_on": [],
+      "triggers": {
+        "has_rental_income": true
+      },
+      "trigger_logic": "all"
+    },
+    "schedule-se": {
+      "name": "Self-Employment Tax",
+      "required": false,
+      "instructions_file": "references/federal/1040-schedule-se.md",
+      "instructions_cached": true,
+      "depends_on": ["schedule-c"],
+      "triggers": {
+        "has_self_employment_income": true
+      },
+      "trigger_logic": "all",
+      "notes": "Required if Schedule C net profit >= $400"
+    },
+    "8949": {
+      "name": "Sales and Other Dispositions of Capital Assets",
+      "required": false,
+      "instructions_file": "references/federal/8949.md",
+      "instructions_cached": false,
+      "depends_on": [],
+      "triggers": {
+        "has_capital_gains": true
+      },
+      "trigger_logic": "all"
+    },
+    "8863": {
+      "name": "Education Credits (American Opportunity and Lifetime Learning Credits)",
+      "required": false,
+      "instructions_file": "references/federal/8863.md",
+      "instructions_cached": true,
+      "depends_on": [],
+      "triggers": {
+        "has_1098_t": true,
+        "has_education_expenses": true
+      },
+      "trigger_logic": "any"
+    },
+    "8889": {
+      "name": "Health Savings Accounts (HSAs)",
+      "required": false,
+      "instructions_file": "references/federal/8889.md",
+      "instructions_cached": true,
+      "depends_on": [],
+      "triggers": {
+        "has_hsa": true
+      },
+      "trigger_logic": "all"
+    },
+    "8812": {
+      "name": "Credits for Qualifying Children and Other Dependents",
+      "required": false,
+      "instructions_file": "references/federal/8812.md",
+      "instructions_cached": false,
+      "depends_on": [],
+      "triggers": {
+        "has_children_under_17": true
+      },
+      "trigger_logic": "all"
+    },
+    "2441": {
+      "name": "Child and Dependent Care Expenses",
+      "required": false,
+      "instructions_file": "references/federal/2441.md",
+      "instructions_cached": false,
+      "depends_on": [],
+      "triggers": {
+        "has_childcare_expenses": true
+      },
+      "trigger_logic": "all"
+    },
+    "8962": {
+      "name": "Premium Tax Credit",
+      "required": false,
+      "instructions_file": "references/federal/8962.md",
+      "instructions_cached": false,
+      "depends_on": [],
+      "triggers": {
+        "has_marketplace_insurance": true
+      },
+      "trigger_logic": "all"
+    }
+  },
+  "processing_order": [
+    "schedule-c",
+    "schedule-se",
+    "8949",
+    "schedule-d",
+    "schedule-e",
+    "schedule-a",
+    "schedule-b",
+    "8889",
+    "8863",
+    "8812",
+    "2441",
+    "8962",
+    "schedule-1",
+    "schedule-2",
+    "schedule-3",
+    "1040"
+  ],
+  "no_income_tax_states": ["AK", "FL", "NV", "NH", "SD", "TN", "TX", "WA", "WY"],
+  "standard_deduction_2025": {
+    "single": 15700,
+    "married_filing_jointly": 31400,
+    "married_filing_separately": 15700,
+    "head_of_household": 23500,
+    "qualifying_surviving_spouse": 31400
+  },
+  "tax_brackets_2025": {
+    "single": [
+      {"min": 0, "max": 11925, "rate": 0.10},
+      {"min": 11925, "max": 48475, "rate": 0.12},
+      {"min": 48475, "max": 103350, "rate": 0.22},
+      {"min": 103350, "max": 197300, "rate": 0.24},
+      {"min": 197300, "max": 250525, "rate": 0.32},
+      {"min": 250525, "max": 626350, "rate": 0.35},
+      {"min": 626350, "max": null, "rate": 0.37}
+    ],
+    "married_filing_jointly": [
+      {"min": 0, "max": 23850, "rate": 0.10},
+      {"min": 23850, "max": 96950, "rate": 0.12},
+      {"min": 96950, "max": 206700, "rate": 0.22},
+      {"min": 206700, "max": 394600, "rate": 0.24},
+      {"min": 394600, "max": 501050, "rate": 0.32},
+      {"min": 501050, "max": 751600, "rate": 0.35},
+      {"min": 751600, "max": null, "rate": 0.37}
+    ],
+    "head_of_household": [
+      {"min": 0, "max": 17000, "rate": 0.10},
+      {"min": 17000, "max": 64850, "rate": 0.12},
+      {"min": 64850, "max": 103350, "rate": 0.22},
+      {"min": 103350, "max": 197300, "rate": 0.24},
+      {"min": 197300, "max": 250500, "rate": 0.32},
+      {"min": 250500, "max": 626350, "rate": 0.35},
+      {"min": 626350, "max": null, "rate": 0.37}
+    ]
+  },
+  "source_doc_guides": {
+    "W-2": {
+      "name": "Wage and Tax Statement",
+      "guide_file": "references/source-docs/w2-fields.md",
+      "cached": true
+    },
+    "1099-NEC": {
+      "name": "Nonemployee Compensation",
+      "guide_file": "references/source-docs/1099-types.md",
+      "cached": true,
+      "notes": "Covered in 1099-types.md along with other 1099 variants"
+    },
+    "1099-INT": {
+      "name": "Interest Income",
+      "guide_file": "references/source-docs/1099-types.md",
+      "cached": true
+    },
+    "1099-DIV": {
+      "name": "Dividends and Distributions",
+      "guide_file": "references/source-docs/1099-types.md",
+      "cached": true
+    },
+    "1099-B": {
+      "name": "Proceeds from Broker and Barter Exchange Transactions",
+      "guide_file": "references/source-docs/1099-types.md",
+      "cached": true
+    },
+    "1099-G": {
+      "name": "Government Payments (Unemployment, State Refunds)",
+      "guide_file": "references/source-docs/1099-types.md",
+      "cached": true
+    },
+    "1099-MISC": {
+      "name": "Miscellaneous Income",
+      "guide_file": "references/source-docs/1099-types.md",
+      "cached": true
+    },
+    "1099-R": {
+      "name": "Distributions from Pensions, Annuities, IRAs",
+      "guide_file": "references/source-docs/1099-types.md",
+      "cached": true
+    },
+    "1099-SA": {
+      "name": "Distributions from HSA, Archer MSA, or Medicare Advantage MSA",
+      "guide_file": "references/source-docs/1099-types.md",
+      "cached": true
+    },
+    "1098": {
+      "name": "Mortgage Interest Statement",
+      "guide_file": "references/source-docs/1098-types.md",
+      "cached": true
+    },
+    "1098-T": {
+      "name": "Tuition Statement",
+      "guide_file": "references/source-docs/1098-types.md",
+      "cached": true
+    },
+    "1098-E": {
+      "name": "Student Loan Interest Statement",
+      "guide_file": "references/source-docs/1098-types.md",
+      "cached": true
+    },
+    "1095-A": {
+      "name": "Health Insurance Marketplace Statement",
+      "guide_file": "references/source-docs/1098-types.md",
+      "cached": true,
+      "notes": "Covered in 1098-types.md"
+    }
+  }
+}

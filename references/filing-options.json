@@ -1,0 +1,89 @@
+{
+  "free_options": [
+    {
+      "name": "IRS Direct File",
+      "type": "online",
+      "url": "https://directfile.irs.gov",
+      "eligibility": "Available in participating states, W-2 income, standard deduction, limited credits",
+      "forms_supported": ["1040"],
+      "state_included": "Links to state free file where available",
+      "priority": 1,
+      "notes": "Run by IRS directly. Simplest option if eligible. Check participating states each year."
+    },
+    {
+      "name": "IRS Free File (Guided)",
+      "type": "online",
+      "url": "https://www.irs.gov/filing/free-file-do-your-federal-taxes-for-free",
+      "eligibility": "AGI <= $84,000 (2025 tax year -- check annually as threshold changes)",
+      "forms_supported": "Most common forms",
+      "state_included": "Varies by provider -- some include free state",
+      "priority": 2,
+      "notes": "Multiple partner providers. Some also do state for free. Use the IRS Free File tool to find the right provider."
+    },
+    {
+      "name": "Free File Fillable Forms",
+      "type": "online",
+      "url": "https://www.irs.gov/e-file-providers/free-file-fillable-forms",
+      "eligibility": "Any income, any age",
+      "forms_supported": "All federal forms -- electronic versions of paper forms",
+      "state_included": false,
+      "priority": 3,
+      "notes": "No built-in guidance, but this skill provides all the guidance needed. Good combo: use this skill to compute values, then enter them in Fillable Forms to e-file."
+    },
+    {
+      "name": "VITA (Volunteer Income Tax Assistance)",
+      "type": "in_person",
+      "url": "https://www.irs.gov/individuals/free-tax-return-preparation-for-qualifying-taxpayers",
+      "eligibility": "Income <= $67,000, persons with disabilities, limited English speakers",
+      "forms_supported": "Most common forms",
+      "state_included": true,
+      "priority": 4,
+      "notes": "Free in-person help from IRS-certified volunteers. Search 'VITA near me' or call 1-800-906-9887."
+    },
+    {
+      "name": "TCE (Tax Counseling for the Elderly)",
+      "type": "in_person",
+      "url": "https://www.irs.gov/individuals/tax-counseling-for-the-elderly",
+      "eligibility": "Age 60+",
+      "forms_supported": "Common forms, specializes in retirement/pension issues",
+      "state_included": true,
+      "priority": 5,
+      "notes": "Free for seniors. Often at libraries and community centers."
+    },
+    {
+      "name": "Paper Filing (Mail)",
+      "type": "mail",
+      "url": "https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment",
+      "eligibility": "Anyone",
+      "forms_supported": "All forms",
+      "state_included": false,
+      "priority": 6,
+      "notes": "Always free. Print, sign, and mail. Slowest refund (6-8 weeks vs 21 days for e-file). Mail address depends on state and whether payment is included."
+    }
+  ],
+  "paid_options": [
+    {
+      "name": "TurboTax",
+      "type": "online",
+      "notes": "Only mention if user asks. Free tier is very limited."
+    },
+    {
+      "name": "H&R Block",
+      "type": "online",
+      "notes": "Only mention if user asks. Free tier exists but limited."
+    },
+    {
+      "name": "CPA / Tax Professional",
+      "type": "in_person",
+      "notes": "Recommend for: AMT, foreign income, business with employees, trust/estate, IRS audit, complex multi-state"
+    }
+  ],
+  "state_free_filing_examples": {
+    "CA": {"name": "CalFile", "url": "https://www.ftb.ca.gov/file/ways-to-file/online/calfile/"},
+    "NY": {"name": "NY Free File", "url": "https://www.tax.ny.gov/pit/efile/default.htm"},
+    "MD": {"name": "Maryland iFile", "url": "https://interactive.marylandtaxes.gov/Individuals/iFile_ChooseForm/default.asp"},
+    "VA": {"name": "Virginia Free File", "url": "https://www.tax.virginia.gov/free-file"},
+    "MA": {"name": "MassTaxConnect", "url": "https://mtc.dor.state.ma.us/"},
+    "_note": "State researcher agent should find the specific portal for the user's state. These are examples only."
+  }
+}
